@@ -21,7 +21,10 @@ function Dashboard() {
     { id: 3, name: "Base de Datos", nrc: 54321, schedule: "Viernes 08:00-10:00" },
     { id: 4, name: "Sistemas Operativos", nrc: 98765, schedule: "Martes 16:00-18:00" },
     { id: 5, name: "Inteligencia Artificial", nrc: 11223, schedule: "Jueves 12:00-14:00" },
-    { id: 6, name: "Seguridad Informática", nrc: 44556, schedule: "Lunes 14:00-16:00" }
+    { id: 6, name: "Seguridad Informática", nrc: 44556, schedule: "Lunes 14:00-16:00" },
+    { id: 7, name: "Programación Avanzada", nrc: 77889, schedule: "Miércoles 10:00-12:00" },
+    { id: 8, name: "Arquitectura de Computadoras", nrc: 99001, schedule: "Viernes 14:00-16:00" },
+    { id: 9, name: "Desarrollo de Aplicaciones Móviles", nrc: 22334, schedule: "Martes 08:00-10:00" }
   ];
 
   return (
