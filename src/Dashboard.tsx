@@ -1,4 +1,5 @@
 function Card({ name, nrc, schedule }: { name: string; nrc: number; schedule: string }) {
+
   return (
     <div className="border p-4 rounded shadow-md">
       <h1 className="text-center">
