@@ -13,6 +13,7 @@ function Card({ name, nrc, schedule }: { name: string; nrc: number; schedule: st
 }
 
 function Dashboard() {
+
   //TODO: Replace with data from API
   const assignatures = [
     { id: 1, name: "Redes II", nrc: 12345, schedule: "Lunes 10:00-12:00" },
@@ -24,7 +25,7 @@ function Dashboard() {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 p-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-10 p-10">
       {assignatures.map(assignature => (
         <Card
           key={assignature.id}
