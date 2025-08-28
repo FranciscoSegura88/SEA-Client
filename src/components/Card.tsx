@@ -5,7 +5,7 @@ function Card({ name, nrc, schedule, onClick }: { name: string; nrc: number; sch
   return (
     <div className="border p-4 rounded-lg shadow-sm bg-white antialiased hover:shadow-lg transition-shadow duration-300" onClick={onClick}>
 
-      <div className="mb-2">
+      <div className="mb-2 border rounded-lg">
         <h1 className="font-semibold text-xl text-gray-800 mx-10 ">
         {name}
         </h1>

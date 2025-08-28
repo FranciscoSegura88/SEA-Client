@@ -3,9 +3,10 @@ import sidebaricon from '../assets/sidebaricon.svg';
 
 type HeaderProps = {
   selectedAssignature?: { name: string; nrc: number };
+  onSidebarToggle: () => void; // Nueva prop para alternar el sidebar
 };
 
-function Header({ selectedAssignature }: HeaderProps) {
+function Header({ selectedAssignature, onSidebarToggle }: HeaderProps) {
   const isLoggedIn = true;
 
   if (isLoggedIn) {
@@ -14,6 +15,7 @@ function Header({ selectedAssignature }: HeaderProps) {
         <button
           type="button"
           className="inline-grid place-items-center h-10 w-10 rounded-full bg-gray-100 hover:bg-gray-200 active:scale-95 transition"
+          onClick={onSidebarToggle} // Llama a la función al hacer clic
         >
           <img src={sidebaricon} alt="Sidebar Icon" className="h-8 w-8" />
         </button>
