@@ -1,19 +1,9 @@
-function Card({ name, nrc, schedule }: { name: string; nrc: number; schedule: string }) {
-
-  return (
-    <div className="border p-4 rounded shadow-md">
-      <h1 className="text-center">
-        {name}
-      </h1>
-      <p className="text-center">
-        NRC: {nrc} <br />
-        Horario: {schedule}
-      </p>
-    </div>
-  );
-}
+import { useState } from "react";
+import Header from "./components/Header";
+import Card from "./components/Card";
 
 function Dashboard() {
+  const [selectedAssignature, setSelectedAssignature] = useState<{ name: string; nrc: number } | null>(null);
 
   //TODO: Replace with data from API
   const assignatures = [
@@ -29,16 +19,20 @@ function Dashboard() {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-10 p-10">
-      {assignatures.map(assignature => (
-        <Card
-          key={assignature.id}
-          name={assignature.name}
-          nrc={assignature.nrc}
-          schedule={assignature.schedule}
-        />
-      ))}
-    </div>
+    <>
+      <Header selectedAssignature={selectedAssignature || undefined} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-10 p-10">
+        {assignatures.map(assignature => (
+          <Card
+            key={assignature.id}
+            name={assignature.name}
+            nrc={assignature.nrc}
+            schedule={assignature.schedule}
+            onClick={() => setSelectedAssignature({ name: assignature.name, nrc: assignature.nrc })}
+          />
+        ))}
+      </div>
+    </>
   );
 }
 
