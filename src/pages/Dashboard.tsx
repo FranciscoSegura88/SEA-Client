@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Header from "./components/Header";
-import Card from "./components/Card";
-import Sidebar from "./components/Sidebar";
+import Header from "../components/Header";
+import Card from "../components/Card";
+import Sidebar from "../components/Sidebar";
 
 function Dashboard() {
   const [selectedAssignature, setSelectedAssignature] = useState<{ name: string; nrc: number } | null>(null);
