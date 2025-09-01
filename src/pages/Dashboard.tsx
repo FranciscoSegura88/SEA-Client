@@ -9,7 +9,6 @@ function Dashboard() {
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  //TODO: Replace with data from API
   const assignatures = [
     { id: 1, name: "Redes II", nrc: 12345, schedule: "Lunes 10:00-12:00" },
     { id: 2, name: "Desarrollo Web", nrc: 67890, schedule: "Miércoles 14:00-16:00" },
@@ -23,20 +22,41 @@ function Dashboard() {
   ];
 
   return (
-    <div className="flex">
-      <Sidebar isOpen={isSidebarOpen} />
-      <div className={`flex-1 transition-all duration-300 ${isSidebarOpen ? "ml-64" : "ml-0"}`}>
-        <Header selectedAssignature={selectedAssignature || undefined} onSidebarToggle={toggleSidebar} />
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-10 p-10">
-          {assignatures.map(assignature => (
-            <Card
-              key={assignature.id}
-              name={assignature.name}
-              nrc={assignature.nrc}
-              schedule={assignature.schedule}
-              onClick={() => setSelectedAssignature({ name: assignature.name, nrc: assignature.nrc })}
-            />
-          ))}
+    <div className="flex min-h-screen">
+      <Sidebar
+        isOpen={isSidebarOpen}
+        assignatures={assignatures}
+        onSelectAssignature={setSelectedAssignature}
+        selectedAssignature={selectedAssignature}
+      />
+
+      <div className={`flex-1 transition-all duration-300 ${isSidebarOpen ? "ml-72" : "ml-0"}`}>
+        <Header
+          selectedAssignature={selectedAssignature || undefined}
+          onSidebarToggle={toggleSidebar}
+        />
+
+        <div className="p-6">
+          <h1 className="text-2xl font-bold text-gray-800 mb-6">
+            {selectedAssignature ? `Materia: ${selectedAssignature.name}` : "Todas las Materias"}
+          </h1>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+            {assignatures.map(assignature => (
+              <Card
+                key={assignature.id}
+                name={assignature.name}
+                nrc={assignature.nrc}
+                schedule={assignature.schedule}
+                onClick={() => setSelectedAssignature(
+                  selectedAssignature?.nrc === assignature.nrc ?
+                  null :
+                  { name: assignature.name, nrc: assignature.nrc }
+                )}
+                isSelected={selectedAssignature?.nrc === assignature.nrc}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

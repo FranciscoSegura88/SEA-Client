@@ -1,26 +1,48 @@
-//TODO: Mejorar las cards y el layout de la página, hacer el header más dinamico y responsivo
-
-function Card({ name, nrc, schedule, onClick }: { name: string; nrc: number; schedule: string; onClick?: () => void }) {
-
+function Card({ name, nrc, schedule, onClick, isSelected }: {
+  name: string;
+  nrc: number;
+  schedule: string;
+  onClick?: () => void;
+  isSelected?: boolean;
+}) {
   return (
-    <div className="border p-4 rounded-lg shadow-sm bg-white antialiased hover:shadow-lg transition-shadow duration-300" onClick={onClick}>
-
-      <div className="mb-2 border rounded-lg">
-        <h1 className="font-semibold text-xl text-gray-800 mx-10 ">
-        {name}
+    <button
+      type="button"
+      onClick={onClick}
+      className={`group relative w-full rounded-2xl p-6 shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 ${
+        isSelected
+          ? "bg-gradient-to-br from-indigo-100 to-blue-100 border-2 border-indigo-300"
+          : "bg-white/80 backdrop-blur-sm"
+      }`}
+    >
+      <div className="flex items-center justify-between border-b border-gray-200 pb-3">
+        <h1 className={`text-lg font-bold group-hover:text-indigo-600 transition-colors ${
+          isSelected ? "text-indigo-700" : "text-gray-800"
+        }`}>
+          {name}
         </h1>
+        <span className={`rounded-md px-2 py-1 text-xs font-medium ${
+          isSelected
+            ? "bg-indigo-200 text-indigo-700"
+            : "bg-indigo-100 text-indigo-600"
+        }`}>
+          NRC {nrc}
+        </span>
       </div>
 
-      <div className="mt-4">
-        <p className="text-center text-gray-500 mt-2">
-        NRC: {nrc} <br />
-        Horario: {schedule}
+      <div className="mt-4 space-y-2 text-sm">
+        <p className={`flex items-center justify-center rounded-md py-2 ${
+          isSelected ? "bg-indigo-50 text-indigo-700" : "bg-gray-50 text-gray-700"
+        }`}>
+          📅 {schedule}
         </p>
       </div>
 
-    </div>
+      {isSelected && (
+        <div className="absolute top-2 right-2 w-3 h-3 bg-indigo-500 rounded-full"></div>
+      )}
+    </button>
   );
-
 }
 
 export default Card;

@@ -1,40 +1,61 @@
 import wavelogo from '../assets/wavelogo.png';
-import sidebaricon from '../assets/sidebaricon.svg';
+import sidebar from '../assets/barra-lateral.png';
+import profilePic from '../assets/userProfPic.png';
 
 type HeaderProps = {
   selectedAssignature?: { name: string; nrc: number };
-  onSidebarToggle: () => void; // Nueva prop para alternar el sidebar
+  onSidebarToggle?: () => void; // Hacer opcional para Login
+  showSidebarToggle?: boolean; // Controlar visibilidad del botón
+  showUserInfo?: boolean; // Controlar visibilidad de info de usuario
 };
 
-function Header({ selectedAssignature, onSidebarToggle }: HeaderProps) {
-  const isLoggedIn = true;
+function Header({
+  selectedAssignature,
+  onSidebarToggle = () => {},
+  showSidebarToggle = true,
+  showUserInfo = true
+}: HeaderProps) {
+  const username = "Frank";
+  const formattedUsername = username.charAt(0).toUpperCase() + username.slice(1);
 
-  if (isLoggedIn) {
-    return (
-      <header className="bg-blue-950 text-white p-4 flex items-center gap-4">
+  return (
+    <header className="bg-[#053758] text-white p-4 flex items-center gap-10 h-1/7">
+      {/* Botón del sidebar (solo visible en Dashboard) */}
+      {showSidebarToggle && (
         <button
           type="button"
-          className="inline-grid place-items-center h-10 w-10 rounded-full bg-gray-100 hover:bg-gray-200 active:scale-95 transition"
-          onClick={onSidebarToggle} // Llama a la función al hacer clic
+          className="inline-grid place-items-center h-12 w-12 hover:scale-110 active:scale-120 transition"
+          onClick={onSidebarToggle}
         >
-          <img src={sidebaricon} alt="Sidebar Icon" className="h-8 w-8" />
+          <img src={sidebar} alt="Sidebar Icon" />
         </button>
-        <img src={wavelogo} alt="Wave Logo" className="h-16 w-16" />
-        <h1 className="text-2xl font-bold">
-          SEA {selectedAssignature ? `> ${selectedAssignature.name} ${selectedAssignature.nrc}` : ""}
-        </h1>
-      </header>
-    );
-  } else {
-    return (
-      <header className="bg-blue-950 text-white p-4 flex items-center gap-4">
-        <img src={wavelogo} alt="Wave Logo" className="h-16 w-16" />
-        <h1 className="text-2xl font-bold">
-          SEA · Sistema de Evidencias Académicas
-        </h1>
-      </header>
-    );
-  }
+      )}
+
+      {/* Logo */}
+      <img src={wavelogo} alt="Wave Logo" className="h-20 w-20" />
+
+      {/* Título */}
+      <h1 className="text-3xl font-bold">
+        SEA {selectedAssignature ? `> ${selectedAssignature.name} ${selectedAssignature.nrc}` : "· Sistema de Evidencias Académicas"}
+      </h1>
+
+      {/* Información de usuario (solo visible cuando showUserInfo es true) */}
+      {showUserInfo && (
+        <>
+          <div className="text-3xl ml-auto text-right">
+            <p>Bienvenido, {formattedUsername}</p>
+          </div>
+
+          <button
+            type='button'
+            className='inline-grid place-items-center h-12 w-12 rounded-full hover:scale-110 active:scale-120 transition'
+          >
+            <img src={profilePic} alt="Foto de Perfil del Usuario" />
+          </button>
+        </>
+      )}
+    </header>
+  );
 }
 
 export default Header;
