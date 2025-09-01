@@ -18,11 +18,14 @@ function Dashboard() {
     { id: 6, name: "Seguridad Informática", nrc: 44556, schedule: "Lunes 14:00-16:00" },
     { id: 7, name: "Programación Avanzada", nrc: 77889, schedule: "Miércoles 10:00-12:00" },
     { id: 8, name: "Arquitectura de Computadoras", nrc: 99001, schedule: "Viernes 14:00-16:00" },
-    { id: 9, name: "Desarrollo de Aplicaciones Móviles", nrc: 22334, schedule: "Martes 08:00-10:00" }
+    { id: 9, name: "Desarrollo de Aplicaciones Móviles", nrc: 22334, schedule: "Martes 08:00-10:00" },
+    { id: 10, name: "Computación en la Nube", nrc: 55667, schedule: "Jueves 16:00-18:00" },
+    { id: 11, name: "Análisis y Diseño de Algoritmos", nrc: 88990, schedule: "Lunes 08:00-10:00" },
+    { id: 12, name: "Ingeniería de Software", nrc: 33445, schedule: "Miércoles 12:00-14:00" },
   ];
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex">
       <Sidebar
         isOpen={isSidebarOpen}
         assignatures={assignatures}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import logoCut from '../assets/logoCUT.png';
+import logo from '../assets/logo.png';
 import Header from "../components/Header";
 
 function Login({ onLogin }: { onLogin: () => void }) {
@@ -64,7 +64,7 @@ function Login({ onLogin }: { onLogin: () => void }) {
         onSidebarToggle={() => {}}
       />
 
-      <div className="flex flex-col justify-center items-center flex-grow p-4">
+      <div className="flex flex-col justify-center items-center flex-grow pt-4">
         {/* Fecha y hora */}
         <div className="text-center">
           <p className="text-xl text-[#005573] font-bold">
@@ -77,11 +77,11 @@ function Login({ onLogin }: { onLogin: () => void }) {
 
         {/* Logo */}
         <div className="">
-          <img src={logoCut} alt="Logo CUT" className="w-100 h-auto" />
+          <img src={logo} alt="Logo CUT" className="w-100" />
         </div>
 
         {/* Formulario de login */}
-        <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+        <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-lg">
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Iniciar Sesión</h2>
 
           <form onSubmit={handleLogin} className="space-y-4">
