@@ -1,53 +1,59 @@
 import wavelogo from '../assets/wavelogo.png';
 import sidebar from '../assets/barra-lateral.png';
+import profilePic from '../assets/userProfPic.png';
 
 type HeaderProps = {
   selectedAssignature?: { name: string; nrc: number };
-  onSidebarToggle: () => void;
+  onSidebarToggle?: () => void; // Hacer opcional para Login
+  showSidebarToggle?: boolean; // Controlar visibilidad del botón
+  showUserInfo?: boolean; // Controlar visibilidad de info de usuario
 };
 
-function Header({ selectedAssignature, onSidebarToggle }: HeaderProps) {
-  const isLoggedIn = false;
+function Header({
+  selectedAssignature,
+  onSidebarToggle = () => {},
+  showSidebarToggle = true,
+  showUserInfo = true
+}: HeaderProps) {
   const username = "Frank";
-
-  // Elementos comunes
-  const logoElement = (
-    <img src={wavelogo} alt="Wave Logo" className="h-20 w-20" />
-  );
-
-  const titleElement = isLoggedIn ? (
-    <h1 className="text-4xl font-bold">
-      SEA {selectedAssignature ? `> ${selectedAssignature.name} ${selectedAssignature.nrc}` : ""}
-    </h1>
-  ) : (
-    <h1 className="text-4xl font-bold">
-      SEA · Sistema de Evidencias Académicas
-    </h1>
-  );
-
-  // Elementos específicos para usuario logueado
-  const sidebarButton = isLoggedIn && (
-    <button
-      type="button"
-      className="inline-grid place-items-center h-12 w-12 hover:scale-110 active:scale-120 transition"
-      onClick={onSidebarToggle}
-    >
-      <img src={sidebar} alt="Sidebar Icon" className="" />
-    </button>
-  );
-
-  const welcomeMessage = isLoggedIn && (
-    <div className="text-4xl ml-auto text-right">
-      <p>BIENVENIDO, {username.toUpperCase()}</p>
-    </div>
-  );
+  const formattedUsername = username.charAt(0).toUpperCase() + username.slice(1);
 
   return (
-    <header className="bg-[#053758] text-white p-4 flex items-center gap-4 h-1/7">
-      {sidebarButton}
-      {logoElement}
-      {titleElement}
-      {welcomeMessage}
+    <header className="bg-[#053758] text-white p-4 flex items-center gap-10 h-1/7">
+      {/* Botón del sidebar (solo visible en Dashboard) */}
+      {showSidebarToggle && (
+        <button
+          type="button"
+          className="inline-grid place-items-center h-12 w-12 hover:scale-110 active:scale-120 transition"
+          onClick={onSidebarToggle}
+        >
+          <img src={sidebar} alt="Sidebar Icon" />
+        </button>
+      )}
+
+      {/* Logo */}
+      <img src={wavelogo} alt="Wave Logo" className="h-20 w-20" />
+
+      {/* Título */}
+      <h1 className="text-3xl font-bold">
+        SEA {selectedAssignature ? `> ${selectedAssignature.name} ${selectedAssignature.nrc}` : "· Sistema de Evidencias Académicas"}
+      </h1>
+
+      {/* Información de usuario (solo visible cuando showUserInfo es true) */}
+      {showUserInfo && (
+        <>
+          <div className="text-3xl ml-auto text-right">
+            <p>Bienvenido, {formattedUsername}</p>
+          </div>
+
+          <button
+            type='button'
+            className='inline-grid place-items-center h-12 w-12 rounded-full hover:scale-110 active:scale-120 transition'
+          >
+            <img src={profilePic} alt="Foto de Perfil del Usuario" />
+          </button>
+        </>
+      )}
     </header>
   );
 }
