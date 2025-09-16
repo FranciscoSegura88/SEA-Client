@@ -1,32 +1,67 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
-import Dashboard from "./pages/Dashboard";
+import Layout from "./Layout";
 import Login from "./pages/Login";
+import Assignatures from "./pages/Assignatures";
+import AssignaturePage from "./pages/AssignaturePage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+    //TODO: Buscar las asignaturas de la api
+    const assignatures = [
+      { id: 1, name: "Redes II", nrc: 12345, schedule: "Lunes 10:00-12:00" },
+      { id: 2, name: "Desarrollo Web", nrc: 67890, schedule: "Miércoles 14:00-16:00" },
+      { id: 3, name: "Base de Datos", nrc: 54321, schedule: "Viernes 08:00-10:00" },
+      { id: 4, name: "Sistemas Operativos", nrc: 98765, schedule: "Martes 16:00-18:00" },
+      { id: 5, name: "Inteligencia Artificial", nrc: 11223, schedule: "Jueves 12:00-14:00" },
+      { id: 6, name: "Seguridad Informática", nrc: 44556, schedule: "Lunes 14:00-16:00" },
+      { id: 7, name: "Programación Avanzada", nrc: 77889, schedule: "Miércoles 10:00-12:00" },
+      { id: 8, name: "Arquitectura de Computadoras", nrc: 99001, schedule: "Viernes 14:00-16:00" },
+      { id: 9, name: "Desarrollo de Aplicaciones Móviles", nrc: 22334, schedule: "Martes 08:00-10:00" },
+      { id: 10, name: "Computación en la Nube", nrc: 55667, schedule: "Jueves 16:00-18:00" },
+      { id: 11, name: "Análisis y Diseño de Algoritmos", nrc: 88990, schedule: "Lunes 08:00-10:00" },
+      { id: 12, name: "Ingeniería de Software", nrc: 33445, schedule: "Miércoles 12:00-14:00" },
+    ];
+
   return (
     <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            isAuthenticated ?
-            <Navigate to="/dashboard" replace /> :
+    <Routes>
+      <Route
+        path="/"
+        element={
+          isAuthenticated ? (
+            <Navigate to="/dashboard" replace />
+          ) : (
             <Login onLogin={() => setIsAuthenticated(true)} />
+          )
+        }
+      />
+
+      {/* --- RUTA PROTEGIDA QUE USA EL LAYOUT --- */}
+      <Route
+          element={
+            isAuthenticated ? (
+              // Le pasamos las asignaturas al Layout
+              <Layout assignatures={assignatures} />
+            ) : (
+              <Navigate to="/" replace />
+            )
           }
-        />
+        >
+        {/* Estas son las rutas que se renderizarán en el <Outlet /> */}
         <Route
           path="/dashboard"
-          element={
-            isAuthenticated ?
-            <Dashboard /> :
-            <Navigate to="/" replace />
-          }
+          element={<Assignatures assignatures={assignatures} />}
         />
-      </Routes>
-    </BrowserRouter>
+        <Route
+            path="/assignature/:assignatureId" // El ':assignatureId' es un parámetro
+            element={<AssignaturePage />}
+          />
+        {/* Podrías agregar más rutas aquí en el futuro */}
+      </Route>
+    </Routes>
+  </BrowserRouter>
   );
 }
 

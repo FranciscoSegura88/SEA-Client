@@ -1,8 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import logo from '../assets/logo.png';
+import logoCUT from '../assets/logoCUT.png';
 import Header from "../components/Header";
 
-function Login({ onLogin }: { onLogin: () => void }) {
+type User = {
+  id: string;
+  name: string;
+};
+
+function Login({ onLogin }: { onLogin: (user: User) => void }) {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [loginData, setLoginData] = useState({ username: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
@@ -40,20 +46,31 @@ function Login({ onLogin }: { onLogin: () => void }) {
     }
 
     setIsLoading(true);
+    setError("");
 
-    // Simular autenticación
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      // Simulación de la llamada a la API
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
-      // Credenciales de prueba
-      if ((loginData.username === "admin" && loginData.password === "admin123") ||
-          (loginData.username === "frank" && loginData.password === "frank123")) {
-        onLogin();
+      if (loginData.username === "admin" && loginData.password === "password") {
+
+        // --- ¡ESTE ES EL CAMBIO CLAVE! ---
+        // 2. Simulamos que la API nos devuelve los datos del usuario.
+        const userDataFromApi = { id: 'u123', name: 'Frank' };
+
+        // 3. Llamamos a onLogin CON los datos del usuario.
+        onLogin(userDataFromApi);
+
       } else {
-        setError("Usuario: admin, Contraseña: admin123");
+        throw new Error("Usuario o contraseña incorrectos");
       }
-    }, 1000);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -64,7 +81,7 @@ function Login({ onLogin }: { onLogin: () => void }) {
         onSidebarToggle={() => {}}
       />
 
-      <div className="flex flex-col justify-center items-center flex-grow pt-4">
+      <div className="flex flex-col justify-center items-center flex-grow pt-4 gap-10">
         {/* Fecha y hora */}
         <div className="text-center">
           <p className="text-xl text-[#005573] font-bold">
@@ -77,7 +94,7 @@ function Login({ onLogin }: { onLogin: () => void }) {
 
         {/* Logo */}
         <div className="">
-          <img src={logo} alt="Logo CUT" className="w-100" />
+          <img src={logoCUT} alt="Logo CUT" className="w-100" />
         </div>
 
         {/* Formulario de login */}

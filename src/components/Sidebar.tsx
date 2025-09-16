@@ -1,13 +1,13 @@
+import { Link } from "react-router-dom";
+
 function Sidebar({
   isOpen,
   assignatures,
-  onSelectAssignature,
   selectedAssignature
 }: {
   isOpen: boolean;
   assignatures: Array<{ id: number; name: string; nrc: number; schedule: string }>;
-  onSelectAssignature: (assignature: { name: string; nrc: number } | null) => void;
-  selectedAssignature: { name: string; nrc: number } | null;
+  selectedAssignature?: { id: number; name: string; nrc: number; schedule: string };
 }) {
   return (
     <div
@@ -28,38 +28,45 @@ function Sidebar({
         <p className="text-xs uppercase text-gray-400 tracking-wider mb-3 px-3">Todas las Materias</p>
 
         <div className="space-y-2">
-          {assignatures.map(assignature => (
-            <button
+          {assignatures.map((assignature) => (
+            <Link
+              to={`/assignature/${assignature.id}`}
               key={assignature.id}
-              onClick={() => onSelectAssignature({ name: assignature.name, nrc: assignature.nrc })}
-              className={`w-full text-left py-3 px-4 rounded-lg transition-all duration-200 flex items-center gap-3 group ${
-                selectedAssignature?.nrc === assignature.nrc
-                  ? "bg-white/20 text-cyan-300"
-                  : "hover:bg-white/10 hover:text-cyan-300"
-              }`}
             >
-              <div className={`w-2 h-2 rounded-full ${
-                selectedAssignature?.nrc === assignature.nrc
-                  ? "bg-cyan-400"
-                  : "bg-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity"
-              }`}></div>
-              <div className="flex-1">
-                <span className="block font-medium">{assignature.name}</span>
-                <span className="text-xs text-gray-300 block mt-1">NRC: {assignature.nrc}</span>
+              <div
+                className={`w-full text-left py-3 px-4 rounded-lg transition-all duration-200 flex items-center gap-3 group ${
+                  selectedAssignature?.id === assignature.id
+                    ? "bg-white/20 text-cyan-300"
+                    : "hover:bg-white/10 hover:text-cyan-300"
+                }`}
+              >
+                <div className={`w-2 h-2 rounded-full ${
+                  selectedAssignature?.id === assignature.id
+                    ? "bg-cyan-400"
+                    : "bg-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                }`}></div>
+                <div className="flex-1">
+                  <span className="block font-medium">{assignature.name}</span>
+                  <span className="text-xs text-gray-300 block mt-1">NRC: {assignature.nrc}</span>
+                </div>
               </div>
-            </button>
+            </Link>
           ))}
         </div>
       </div>
 
       {/* Footer del sidebar */}
       <div className="absolute bottom-0 w-full p-4 border-t border-white/10">
-        <button
-          onClick={() => onSelectAssignature(null)}
-          className="w-full py-2 px-4 text-sm bg-white/10 hover:bg-white/20 rounded-lg transition-colors duration-200"
-        >
+          <Link
+          to="/dashboard"
+          className={`block w-full text-center py-2 px-4 text-sm rounded-lg transition-colors ${
+            location.pathname === '/dashboard'
+              ? 'bg-white/20 text-cyan-300'
+              : 'bg-white/10 hover:bg-white/20'
+          }`}
+          >
           Ver todas las materias
-        </button>
+        </Link>
       </div>
     </div>
   );
