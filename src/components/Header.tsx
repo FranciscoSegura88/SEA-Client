@@ -1,12 +1,13 @@
 import wavelogo from '../assets/wavelogo.png';
 import sidebar from '../assets/barra-lateral.png';
 import profilePic from '../assets/userProfPic.png';
+import { Link } from 'react-router-dom';
 
 type HeaderProps = {
   selectedAssignature?: { name: string; nrc: number };
-  onSidebarToggle?: () => void; // Hacer opcional para Login
-  showSidebarToggle?: boolean; // Controlar visibilidad del botón
-  showUserInfo?: boolean; // Controlar visibilidad de info de usuario
+  onSidebarToggle?: () => void;
+  showSidebarToggle?: boolean;
+  showUserInfo?: boolean;
 };
 
 function Header({
@@ -15,6 +16,7 @@ function Header({
   showSidebarToggle = true,
   showUserInfo = true
 }: HeaderProps) {
+
   const username = "Frank";
   const formattedUsername = username.charAt(0).toUpperCase() + username.slice(1);
 
@@ -32,7 +34,11 @@ function Header({
       )}
 
       {/* Logo */}
-      <img src={wavelogo} alt="Wave Logo" className="h-20 w-20" />
+      <Link
+          to="/dashboard"
+          >
+        <img src={wavelogo} alt="Wave Logo" className="h-20 w-20" />
+      </Link>
 
       {/* Título */}
       <h1 className="text-3xl font-bold">
