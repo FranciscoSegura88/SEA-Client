@@ -77,7 +77,7 @@ function AssignaturePage() {
             className="bg-white rounded-2xl shadow-md p-6 transition-all duration-300 hover:shadow-xl"
           >
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-[#053758]">{cat.name}</h2>
+              <h2 className="text-xl font-semibold text-[#053758]">{category.name}</h2>
               <span className="text-sm text-gray-500">
                 {category.uploaded}/{category.total} evidencias subidas
               </span>
