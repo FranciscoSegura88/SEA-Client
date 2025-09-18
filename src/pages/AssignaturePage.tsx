@@ -79,7 +79,7 @@ function AssignaturePage() {
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-semibold text-[#053758]">{cat.name}</h2>
               <span className="text-sm text-gray-500">
-                {cat.uploaded}/{category.total} evidencias subidas
+                {category.uploaded}/{category.total} evidencias subidas
               </span>
             </div>
 
