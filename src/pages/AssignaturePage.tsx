@@ -14,38 +14,38 @@ type EvidenceFile = { name: string; url: string };
 function AssignaturePage() {
   const { assignatureId } = useParams();
   const [evidences, setEvidences] = useState(
-    evidencesTemplate.map((cat) => ({
-      ...cat,
+    evidencesTemplate.map((category) => ({
+      ...category,
       uploaded: 0,
       files: [] as EvidenceFile[],
     }))
   );
 
   const handleUpload = (id: string, file: File) => {
-    const fileUrl = URL.createObjectURL(file); 
+    const fileUrl = URL.createObjectURL(file);
     setEvidences((prev) =>
-      prev.map((cat) =>
-        cat.id === id
+      prev.map((category) =>
+        category.id === id
           ? {
-              ...cat,
-              uploaded: cat.uploaded + 1,
-              files: [...cat.files, { name: file.name, url: fileUrl }],
+              ...category,
+              uploaded: category.uploaded + 1,
+              files: [...category.files, { name: file.name, url: fileUrl }],
             }
-          : cat
+          : category
       )
     );
   };
 
-  const handleDelete = (catId: string, fileIdx: number) => {
+  const handleDelete = (categoryId: string, fileIdx: number) => {
     setEvidences((prev) =>
-      prev.map((cat) =>
-        cat.id === catId
+      prev.map((category) =>
+        category.id === categoryId
           ? {
-              ...cat,
-              uploaded: cat.uploaded - 1,
-              files: cat.files.filter((_, idx) => idx !== fileIdx),
+              ...category,
+              uploaded: category.uploaded - 1,
+              files: category.files.filter((_, idx) => idx !== fileIdx),
             }
-          : cat
+          : category
       )
     );
   };
@@ -71,21 +71,21 @@ function AssignaturePage() {
       </div>
 
       <div className="space-y-4">
-        {evidences.map((cat) => (
+        {evidences.map((category) => (
           <div
-            key={cat.id}
+            key={category.id}
             className="bg-white rounded-2xl shadow-md p-6 transition-all duration-300 hover:shadow-xl"
           >
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-semibold text-[#053758]">{cat.name}</h2>
               <span className="text-sm text-gray-500">
-                {cat.uploaded}/{cat.total} evidencias subidas
+                {cat.uploaded}/{category.total} evidencias subidas
               </span>
             </div>
 
             <ul className="mt-4 space-y-2 text-gray-700">
-              {cat.files.length > 0 ? (
-                cat.files.map((file, idx) => (
+              {category.files.length > 0 ? (
+                category.files.map((file, idx) => (
                   <li
                     key={idx}
                     className="flex items-center justify-between bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition cursor-pointer"
@@ -98,7 +98,7 @@ function AssignaturePage() {
                     </span>
 
                     <button
-                      onClick={() => handleDelete(cat.id, idx)}
+                      onClick={() => handleDelete(category.id, idx)}
                       className="text-red-500 hover:text-red-700 text-sm font-semibold"
                     >
                       Eliminar
@@ -119,7 +119,7 @@ function AssignaturePage() {
                   type="file"
                   className="hidden"
                   onChange={(e) =>
-                    e.target.files?.[0] && handleUpload(cat.id, e.target.files[0])
+                    e.target.files?.[0] && handleUpload(category.id, e.target.files[0])
                   }
                 />
               </label>
